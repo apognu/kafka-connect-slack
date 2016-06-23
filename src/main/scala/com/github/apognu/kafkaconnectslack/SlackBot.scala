@@ -58,6 +58,10 @@ object SlackBot extends Shutdownable {
 
   class SlackBot(override val bus: MessageEventBus) extends AbstractBot {
 
+    val keySchema = SchemaBuilder.struct().name("com.slack.key")
+      .field("channel", Schema.STRING_SCHEMA)
+      .build()
+
     val schema = SchemaBuilder.struct().name("com.slack.message")
       .field("user", Schema.STRING_SCHEMA)
       .field("channel", Schema.STRING_SCHEMA)
@@ -73,6 +77,9 @@ object SlackBot extends Shutdownable {
           Collections.singletonMap("channel", message.channel),
           Collections.singletonMap("position", System.currentTimeMillis()),
           topicName,
+          null,
+          keySchema,
+          new Struct(keySchema).put("channel", message.channel),
           schema,
           new Struct(schema)
             .put("user", message.user)
