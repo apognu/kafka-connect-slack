@@ -2,6 +2,8 @@
 
 This program is a Kafka Source Connector for inserting Slack messages into a Kafka topic.
 
+This connector is a Slack bot, so it will need to be running *and* invited to the channels of which you want to get the messages.
+
 ## Build and run
 
 ```
@@ -45,4 +47,4 @@ The messages produced into the destination Kafka topic will have the following (
 }
 ```
 
-The channel name and username are not provided by Slack's RTM API, and I do not consider it to be the Source Connector's job to transform them.
+The channel name and username are not provided by Slack's RTM API (only their IDs), and I do not consider it to be the Source Connector's job to transform them.
